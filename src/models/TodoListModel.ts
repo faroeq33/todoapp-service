@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-interface TodoList {
+type TodoList = {
 	id: string;
 	user_id: string;
 	title: string;
