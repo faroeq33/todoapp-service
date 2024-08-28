@@ -10,8 +10,8 @@ export const connectDB = async () => {
 		;
 	} else {
 		uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
+		console.log("connectionstring: ", uri)
 	}
-	console.log("connectionstring", uri)
 
 	try {
 		await mongoose.connect(uri);

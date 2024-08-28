@@ -1,8 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import "dotenv/config"
 import cors from 'cors';
+import "dotenv/config"
 
 import * as middlewares from './middlewares/middlewares';
 import apiRoutes from './api/routes';

@@ -20,5 +20,11 @@ const todoItemSchema = new Schema<TodoItem>({
 	updated_at: { type: Date, required: true, default: Date.now },
 });
 
+todoItemSchema.methods.toJSON = function removeVersionKey() {
+	var obj = this.toObject();
+	delete obj.__v;
+	return obj;
+}
+
 const TodoItemModel = model<TodoItem>('TodoItem', todoItemSchema);
 export default TodoItemModel;

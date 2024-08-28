@@ -2,6 +2,7 @@ import { Response } from 'express-serve-static-core';
 import TodoItemModel from '../models/TodoItemModel';
 import TodoListModel from '../models/TodoListModel';
 import { AuthRequest } from '../interfaces/AuthRequest';
+import { JwtPayload } from 'jsonwebtoken';
 
 export class TodoListController {
   /* get all todolists from user paginated
@@ -95,21 +96,25 @@ export class TodoListController {
   // create todo
   async create(req: AuthRequest, res: Response) {
     try {
-      console.log(req.admin)
-      // if (!req.body.user_id) {
-      //   return res.status(400).json({
-      //     message: "user_id is required",
-      //   });
-      // }
+      if (!req.body.user_id) {
+        return res.status(400).json({
+          message: "user_id is required",
+        });
+      }
       if (!req.body.title) {
         return res.status(400).json({
           message: "title is required",
         });
       }
-      const todoList = await TodoListModel.create({
+
+      const todoList = new TodoListModel({
         user_id: req.body.user_id,
         title: req.body.title,
       });
+
+      // removes the version key from the response, written in the TodoListModel
+      (await todoList.save()).toJSON();
+
       return res.status(201).json({
         todoList,
         message: "todo created successfully",

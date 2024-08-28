@@ -16,6 +16,12 @@ const todoListSchema = new Schema<TodoList>({
 	updated_at: { type: Date, required: false, default: Date.now },
 });
 
+todoListSchema.methods.toJSON = function removeVersionKey() {
+	var obj = this.toObject();
+	delete obj.__v;
+	return obj;
+}
+
 const TodoListModel = model<TodoList>('TodoList', todoListSchema);
 export default TodoListModel;
 

@@ -31,5 +31,12 @@ userSchema.pre("save", async function (next) {
 		next(error);
 	}
 });
+
+userSchema.methods.toJSON = function removeVersionKey() {
+	var obj = this.toObject();
+	delete obj.__v;
+	return obj;
+}
+
 const UserModel = model<TUser>('User', userSchema);
 export default UserModel;
