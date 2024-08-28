@@ -19,11 +19,11 @@ export function errorHandler(err: Error, req: Request, res: Response<ErrorRespon
   });
 }
 
-interface CustomRequest extends Request {
-  admin: string | JwtPayload;
+interface AuthRequest extends Request {
+  admin?: string | JwtPayload;
 }
 
-export function verifyToken(req: CustomRequest, res: Response, next: NextFunction) {
+export function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -34,6 +34,7 @@ export function verifyToken(req: CustomRequest, res: Response, next: NextFunctio
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
     req.admin = decoded; // In order to use this in the next middleware
+    console.log(decoded);
   } catch (err) {
     console.log(err);
     return res.status(401).send("Invalid Token");
