@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import "dotenv/config"
 import cors from 'cors';
 
-import * as middlewares from './middlewares';
+import * as middlewares from './middlewares/middlewares';
 import api from './api';
 import MessageResponse from './interfaces/MessageResponse';
 import mongoose from 'mongoose';
