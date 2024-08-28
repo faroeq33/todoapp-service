@@ -5,7 +5,7 @@ import "dotenv/config"
 import cors from 'cors';
 
 import * as middlewares from './middlewares/middlewares';
-import api from './api';
+import api from './api/routes';
 import MessageResponse from './interfaces/MessageResponse';
 import mongoose from 'mongoose';
 
@@ -34,14 +34,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 
-
-app.get<object, MessageResponse>('/', (req, res) => {
-  res.json({
-    message: 'Welcome to the todoapp service',
-  });
-});
-
-app.use('/api/v1', api);
+app.use('/', api);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

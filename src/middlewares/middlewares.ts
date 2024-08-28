@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express-serve-static-core';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
 import ErrorResponse from '../interfaces/ErrorResponse';
+import { AuthRequest } from '../interfaces/AuthRequest';
 
 export function notFound(req: Request, res: Response, next: NextFunction) {
   res.status(404);
@@ -17,10 +18,6 @@ export function errorHandler(err: Error, req: Request, res: Response<ErrorRespon
     message: err.message,
     stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack,
   });
-}
-
-interface AuthRequest extends Request {
-  admin?: string | JwtPayload;
 }
 
 export function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {

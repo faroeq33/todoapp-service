@@ -2,7 +2,7 @@ import { Request, Response } from 'express-serve-static-core';
 import TodoItemModel from '../models/TodoItemModel';
 import TodoListModel from '../models/TodoListModel';
 
-export class TodoController {
+export class TodoItemController {
   // get all todos
   async getAllTodos(req: Request, res: Response) {
     try {

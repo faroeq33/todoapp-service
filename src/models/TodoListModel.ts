@@ -9,11 +9,11 @@ type TodoList = {
 }
 
 const todoListSchema = new Schema<TodoList>({
-	id: { type: String, required: true },
+	// id: { type: String, required: true },
 	user_id: { type: String, required: true, ref: 'User' },
 	title: { type: String, required: true },
-	created_at: { type: Date, required: true, default: Date.now },
-	updated_at: { type: Date, required: true, default: Date.now },
+	created_at: { type: Date, required: false, default: Date.now },
+	updated_at: { type: Date, required: false, default: Date.now },
 });
 
 const TodoListModel = model<TodoList>('TodoList', todoListSchema);
