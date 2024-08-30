@@ -66,8 +66,6 @@ export class TodoListController {
     }
   }
 
-
-
   // get todo by slug
   async getTodoBySlug(req: AuthRequest, res: Response) {
     // try {
