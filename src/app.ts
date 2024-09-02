@@ -6,7 +6,7 @@ import "dotenv/config"
 
 import * as middlewares from './middlewares/middlewares';
 import apiRoutes from './api/routes';
-import Database, { connectDB } from './database/database';
+import Database from './database/database';
 
 const app = express();
 
@@ -18,8 +18,6 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'DEV' || process.env.NODE_ENV === 'PRODUCTION') {
 	Database.getInstance()
 }
-
-// connectDB();
 
 app.use('/', apiRoutes);
 
