@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express-serve-static-core';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 import ErrorResponse from '../interfaces/ErrorResponse';
 import { AuthRequest } from '../interfaces/AuthRequest';

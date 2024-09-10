@@ -1,4 +1,4 @@
-import { Request, Response } from 'express-serve-static-core';
+import { Request } from 'express-serve-static-core';
 import express from 'express';
 import MessageResponse from '../interfaces/MessageResponse';
 import bcrypt from 'bcrypt';
