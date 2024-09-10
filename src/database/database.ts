@@ -6,22 +6,26 @@ dotenv.config()
 class Database {
 	private static _database: Database
 	private constructor() {
-		let uri = "";
-		if (process.env.NODE_ENV === "production") {
-			if (!process.env.MONGODB_CONNECTIONSTRING) {
-				throw new Error("MONGODB_CONNECTIONSTRING is not defined");
-			}
-			uri = process.env.MONGODB_CONNECTIONSTRING;
+		// let uri = "";
+		// if (process.env.NODE_ENV === "production") {
+		// 	if (!process.env.MONGODB_CONNECTIONSTRING) {
+		// 		throw new Error("MONGODB_CONNECTIONSTRING is not defined");
+		// 	}
+		// 	uri = process.env.MONGODB_CONNECTIONSTRING;
 
-		} else {
-			uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
-			console.log("connectionstring: ", uri)
+		// } else {
+		// 	uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
+		// 	console.log("connectionstring: ", uri)
+		// }
+		const dbUrl = process.env.DB_URL
+		if (dbUrl) {
+			mongoose.connect(dbUrl)
+				.then(() => console.log('Connected with database'))
+				.catch(() => console.log('Not connected with database'))
 		}
-
-		mongoose.connect(uri)
-			.then(() => console.log("Connected to MongoDB"))
-			.catch((err) => console.error("Could not connect to MongoDB...", err));
-
+		if (!dbUrl) {
+			console.log('DB_URL is not defined')
+		}
 	}
 	static getInstance() {
 		if (this._database) {

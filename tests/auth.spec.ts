@@ -1,21 +1,21 @@
 import app from '../src/app';
-import * as db from './db'
+// import * as mockDb from './mockdb'
 import supertest from 'supertest'
 
 const request = supertest(app)
 
 describe('Test request with mongoose', () => {
-	beforeAll(async () => {
-		await db.connect()
-	});
+	// beforeAll(async () => {
+	// 	await mockDb.connect()
+	// });
 
-	afterEach(async () => {
-		await db.clearDatabase()
-	});
+	// afterEach(async () => {
+	// 	await mockDb.clearDatabase()
+	// });
 
-	afterAll(async () => {
-		await db.closeDatabase()
-	});
+	// afterAll(async () => {
+	// 	await mockDb.closeDatabase()
+	// });
 
 	test('GET - /', async () => {
 		const res = await request.get('/api/v1/welcome').send();
