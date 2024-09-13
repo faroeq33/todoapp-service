@@ -5,18 +5,8 @@ dotenv.config()
 
 class Database {
 	private static _database: Database
-	private constructor() {
-		// let uri = "";
-		// if (process.env.NODE_ENV === "production") {
-		// 	if (!process.env.MONGODB_CONNECTIONSTRING) {
-		// 		throw new Error("MONGODB_CONNECTIONSTRING is not defined");
-		// 	}
-		// 	uri = process.env.MONGODB_CONNECTIONSTRING;
 
-		// } else {
-		// 	uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
-		// 	console.log("connectionstring: ", uri)
-		// }
+	private constructor() {
 		const dbUrl = process.env.DB_URL
 		if (dbUrl) {
 			mongoose.connect(dbUrl)
