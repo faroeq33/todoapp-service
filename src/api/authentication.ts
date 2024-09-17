@@ -3,9 +3,10 @@ import express from 'express';
 import MessageResponse from '../interfaces/MessageResponse';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User, { TUser } from '../models/UserModel';
-import { hasEmptyFields } from '../helpers/hasEmptyFields';
+import { ValidationHelper } from '../helpers/ValidationHelper';
 import { ErrorHelper } from '../helpers/ErrorHelper';
+import { TUser } from '../models/UserModel';
+import Database from '../database/database';
 
 const router = express.Router();
 
@@ -13,15 +14,15 @@ router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) =
   console.log("register initiated")
 
   // validate user input, for email, password, and username
-  if (hasEmptyFields(req.body)) {
+
+  if (ValidationHelper.hasEmptyFields(req.body)) {
     return res.status(400).send({ message: "Missing email, password or username fields. Check if you have any typos" });
   }
 
-  try {
-    const userInput: TUser = req.body;
+  const userInput: TUser = req.body;
 
-    const admin = new User(userInput);
-    await admin.save();
+  try {
+    await Database.registerUser(userInput);
 
     res.status(201).send({ message: "Account has been created" });
   } catch (error) {
@@ -43,6 +44,7 @@ router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) =
 });
 
 // make login route
+/*
 router.post('/login', async (req, res) => {
   console.log("login initiated")
 
@@ -70,6 +72,7 @@ router.post('/login', async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
+*/
 
 // make logout route
 export default router;
