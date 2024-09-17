@@ -4,8 +4,8 @@
   "description": "Backend for todoapp",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts",
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc",
     "lint": "eslint --fix src test",
     "test": "export NODE_ENV=TEST && jest --detectOpenHandles",
