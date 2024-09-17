@@ -16,9 +16,6 @@ export const disconnect = async () => {
 
 	const instance: MongoMemoryServer = (global as any).__MONGOINSTANCE;
 	await instance.stop();
-
-	// previous code, I still have to decide if I want to use it or not
-	await (await memoryServer).stop();
 }
 
 export const clearDatabase = async () => {

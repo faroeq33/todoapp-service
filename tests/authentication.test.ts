@@ -97,6 +97,6 @@ describe("Authentication API", () => {
 				username: 'testuser',
 				email: testUser.email,
 			});
-		})
+		});
 	})
 });
