@@ -21,6 +21,7 @@ class Database {
 			.catch(() => console.log('Not connected with database'))
 
 	}
+
 	static getInstance() {
 		if (this._database) {
 			return this._database
@@ -32,6 +33,10 @@ class Database {
 	static async registerUser(userInput: TUser) {
 		const admin = new User(userInput);
 		return await admin.save();
+	}
+
+	static async findUserByEmail(email: string) {
+		return await User.findOne({ email });
 	}
 }
 

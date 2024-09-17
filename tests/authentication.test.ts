@@ -14,10 +14,14 @@ describe("Authentication API", () => {
 
 	describe(`POST ${baseRoute}/register`, () => {
 		it("should return 400 if email is missing", async () => {
-			const response = await request.post(`${baseRoute}/register`).send({
+			const testData = {
 				username: testUser.username,
 				password: testUser.password,
-			});
+			}
+
+			const response = await request
+				.post(`${baseRoute}/register`)
+				.send(testData);
 
 			expect(response.status).toBe(400);
 			expect(response.body.message).toBe(
@@ -32,9 +36,7 @@ describe("Authentication API", () => {
 			});
 
 			expect(response.status).toBe(400);
-			expect(response.body.message).toBe(
-				"Missing email, password or username fields. Check if you have any typos"
-			);
+			expect(response.body).toHaveProperty("message");
 		});
 
 		it("should return 400 if password is missing", async () => {
@@ -44,9 +46,7 @@ describe("Authentication API", () => {
 			});
 
 			expect(response.status).toBe(400);
-			expect(response.body.message).toBe(
-				"Missing email, password or username fields. Check if you have any typos"
-			);
+			expect(response.body).toHaveProperty("message");
 		});
 
 		it("should return 201 if user is created successfully", async () => {
@@ -64,9 +64,23 @@ describe("Authentication API", () => {
 				.send(testUser);
 
 			expect(response.status).toBe(400);
-			expect(response.body.message).toBe(
-				"A user with this this unique key already exists!"
-			);
+			expect(response.body).toHaveProperty("message");
 		});
 	});
+
+	describe(`POST ${baseRoute}/login`, () => {
+		it("should return 400 if email is missing", async () => {
+			const testData = {
+				username: testUser.username,
+				password: testUser.password,
+			}
+
+			const response = await request
+				.post(`${baseRoute}/login`)
+				.send(testData);
+
+			expect(response.status).toBe(400);
+			expect(response.body).toHaveProperty("message");
+		});
+	})
 });

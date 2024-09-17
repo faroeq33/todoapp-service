@@ -18,35 +18,16 @@ router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) =
 );
 
 // make login route
-/*
 router.post('/login', async (req, res) => {
-  console.log("login initiated")
+  const response = await AuthController.login(req.body);
 
-  try {
-    const userInput = req.body as TUser;
-
-    const dbUser = await User.findOne({ email: userInput.email });
-    if (!dbUser) {
-      return res.status(400).send({ message: "Invalid credentials" });
-    }
-
-    // check if password is correct
-    const isPasswordValid = await bcrypt.compare(userInput.password, dbUser.password);
-
-    if (!isPasswordValid) {
-      return res.status(400).send({ message: "Invalid credentials" });
-    }
-
-    // create a token
-    const token = await jwt.sign({ _id: dbUser._id }, process.env.JWT_SECRET as string, {
-      expiresIn: "12h",
+  res
+    .status(response.statusCode)
+    .send({
+      message: response.message,
     });
-    res.send({ token, expiresIn: 43200 });
-  } catch (err: any) {
-    res.status(500).send({ message: err.message });
-  }
 });
-*/
+
 
 // make logout route
 export default router;
