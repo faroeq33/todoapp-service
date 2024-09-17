@@ -1,44 +1,21 @@
 import { Request } from 'express-serve-static-core';
 import express from 'express';
 import MessageResponse from '../interfaces/MessageResponse';
-import { ValidationHelper } from '../helpers/ValidationHelper';
-import { ErrorHelper } from '../helpers/ErrorHelper';
 import { TUser } from '../models/UserModel';
-import Database from '../database/database';
+import { AuthController } from '../controllers/AuthController';
 
 const router = express.Router();
 
 router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) => {
-  console.log("register initiated")
+  const response = await AuthController.register(req.body);
 
-  // validate user input, for email, password, and username
-  if (ValidationHelper.hasEmptyFields(req.body)) {
-    return res.status(400).send({ message: "Missing email, password or username fields. Check if you have any typos" });
-  }
-
-  const userInput: TUser = req.body;
-
-  try {
-    await Database.registerUser(userInput);
-
-    res.status(201).send({ message: "Account has been created" });
-  } catch (error) {
-    if (ErrorHelper.isDuplicate(error)) {
-      return res
-        .status(400)
-        .json({
-          message: 'A user with this this unique key already exists!',
-        });
-    }
-
-    // logs the error to the console, so it won't expose the error to the user
-    console.log(error);
-
-    res
-      .status(500)
-      .json({ message: 'Internal server error' });
-  }
-});
+  res
+    .status(response.statusCode)
+    .send({
+      message: response.message,
+    });
+}
+);
 
 // make login route
 /*

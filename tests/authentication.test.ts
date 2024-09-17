@@ -57,5 +57,16 @@ describe("Authentication API", () => {
 			expect(response.status).toBe(201);
 			expect(response.body).toHaveProperty("message");
 		});
+
+		it("should return 400 if user already exists", async () => {
+			const response = await request
+				.post(`${baseRoute}/register`)
+				.send(testUser);
+
+			expect(response.status).toBe(400);
+			expect(response.body.message).toBe(
+				"A user with this this unique key already exists!"
+			);
+		});
 	});
 });
