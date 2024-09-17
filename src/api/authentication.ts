@@ -4,6 +4,8 @@ import MessageResponse from '../interfaces/MessageResponse';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User, { TUser } from '../models/UserModel';
+import { hasEmptyFields } from '../helpers/hasEmptyFields';
+import { ErrorHelper } from '../helpers/ErrorHelper';
 
 const router = express.Router();
 
@@ -11,28 +13,32 @@ router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) =
   console.log("register initiated")
 
   // validate user input, for email, password, and username
-  if (!req.body.email || !req.body.password || !req.body.username) {
+  if (hasEmptyFields(req.body)) {
     return res.status(400).send({ message: "Missing email, password or username fields. Check if you have any typos" });
   }
 
   try {
     const userInput: TUser = req.body;
 
-    // Check if email already exists
-    const existingUser = await User.findOne({ email: userInput.email });
-
-    if (existingUser) {
-      console.log("user found: ", existingUser)
-      return res.status(400).send({ message: "Email already exists" });
-    }
-
     const admin = new User(userInput);
-
     await admin.save();
 
     res.status(201).send({ message: "Account has been created" });
-  } catch (err: any) {
-    res.status(500).send({ message: err });
+  } catch (error) {
+    if (ErrorHelper.isDuplicate(error)) {
+      return res
+        .status(400)
+        .json({
+          message: 'A user with this this unique key already exists!',
+        });
+    }
+
+    // logs the error to the console, so it won't expose the error to the user
+    console.log(error);
+
+    res
+      .status(500)
+      .json({ message: 'Internal server error' });
   }
 });
 
