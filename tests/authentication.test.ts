@@ -69,18 +69,34 @@ describe("Authentication API", () => {
 	});
 
 	describe(`POST ${baseRoute}/login`, () => {
-		it("should return 400 if email is missing", async () => {
-			const testData = {
-				username: testUser.username,
-				password: testUser.password,
-			}
-
+		async function requestPostLogin(body: object) {
 			const response = await request
 				.post(`${baseRoute}/login`)
-				.send(testData);
+				.send(body);
 
 			expect(response.status).toBe(400);
 			expect(response.body).toHaveProperty("message");
+		}
+
+		it("should return 400 if email is missing", async () => {
+			requestPostLogin({
+				username: 'testuser',
+				password: testUser.password,
+			});
 		});
+
+		it("should return 400 if password is missing", async () => {
+			requestPostLogin({
+				email: 'test@test.com',
+				username: testUser.username,
+			});
+		});
+
+		it("should return 400 if username is missing", async () => {
+			requestPostLogin({
+				username: 'testuser',
+				email: testUser.email,
+			});
+		})
 	})
 });
