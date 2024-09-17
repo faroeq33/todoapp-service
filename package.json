@@ -1,5 +1,7 @@
 {
   "name": "todoapp-service",
+  "author": "Faroeq Alves",
+  "license": "ISC",
   "version": "1.0.0",
   "description": "Backend for todoapp",
   "main": "index.js",
@@ -12,11 +14,7 @@
     "start:dist": "node dist/src/index.js",
     "typecheck": "tsc --noEmit"
   },
-  "author": "Faroeq Alves",
-  "license": "ISC",
   "dependencies": {
-    "@types/bcrypt": "^5.0.2",
-    "@types/jsonwebtoken": "^9.0.6",
     "bcrypt": "^5.1.1",
     "chalk": "^5.3.0",
     "cors": "^2.8.5",
@@ -25,9 +23,12 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6",
     "@eslint/js": "^9.9.0",
     "@types/cors": "^2.8.17",
     "@types/eslint__js": "^8.42.3",

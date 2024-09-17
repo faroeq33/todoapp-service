@@ -1,14 +1,11 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-dotenv.config();
+import * as DBMananger from './utils/DBManager';
 
 beforeAll(async () => {
-	// put your client connection code here, example with mongoose:
-	await mongoose.connect(process.env['MONGO_URI'] as string);
+	// put your client connection code here:
+	await DBMananger.connect();
 });
 
 afterAll(async () => {
-	// put your client disconnection code here, example with mongoose:
-	await mongoose.disconnect();
+	// put your client disconnection code here:
+	await DBMananger.disconnect();
 });

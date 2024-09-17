@@ -1,7 +1,7 @@
 import app from './app';
-import { PORT, SERVER_URL } from './config';
+import { config } from './config';
 
-app.listen(PORT, () => {
-  console.log(`current environment: ${process.env.NODE_ENV}`);
-  console.log(`Listening: ${SERVER_URL}`);
+app.listen(config.SERVER_PORT, () => {
+  console.log(`current environment: ${config.NODE_ENV}`);
+  console.log(`Listening: ${config.SERVER_URL}`);
 });

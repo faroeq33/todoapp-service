@@ -13,10 +13,34 @@ describe("Authentication API", () => {
 	const baseRoute = "/api/v1/auth";
 
 	describe(`POST ${baseRoute}/register`, () => {
-		it("should return 400 if email, password, or username is missing", async () => {
+		it("should return 400 if email is missing", async () => {
 			const response = await request.post(`${baseRoute}/register`).send({
 				username: testUser.username,
 				password: testUser.password,
+			});
+
+			expect(response.status).toBe(400);
+			expect(response.body.message).toBe(
+				"Missing email, password or username fields. Check if you have any typos"
+			);
+		});
+
+		it("should return 400 if username is missing", async () => {
+			const response = await request.post(`${baseRoute}/register`).send({
+				email: testUser.email,
+				password: testUser.password,
+			});
+
+			expect(response.status).toBe(400);
+			expect(response.body.message).toBe(
+				"Missing email, password or username fields. Check if you have any typos"
+			);
+		});
+
+		it("should return 400 if password is missing", async () => {
+			const response = await request.post(`${baseRoute}/register`).send({
+				email: testUser.email,
+				username: testUser.username,
 			});
 
 			expect(response.status).toBe(400);

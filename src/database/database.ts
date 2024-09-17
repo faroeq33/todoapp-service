@@ -1,27 +1,25 @@
 import User, { TUser } from '../models/UserModel';
 import mongoose from "mongoose";
-import { DB_URL } from '../config'
+import { config as env } from '../config';
 
 class Database {
 	private static _database: Database
 
 	private constructor() {
-		const dbUrl = DB_URL
+		const { CONNECTIONSTRING } = env
 
-		if (process.env.NODE_ENV === 'DEV' && dbUrl) {
-			console.log(dbUrl)
+		if (env.NODE_ENV === 'DEV' && CONNECTIONSTRING) {
+			console.log(CONNECTIONSTRING)
 		}
 
-		if (dbUrl) {
-			const testurl = 'mongodb://mongoadmin:secret@localhost:27017'
-			console.log('current db url', dbUrl)
-			mongoose.connect(testurl)
-				.then(() => console.log('Connected with database'))
-				.catch(() => console.log('Not connected with database'))
-		}
-		if (!dbUrl) {
+		if (!CONNECTIONSTRING) {
 			console.log('DB_URL is not defined')
 		}
+
+		mongoose.connect(CONNECTIONSTRING)
+			.then(() => console.log('Connected with database'))
+			.catch(() => console.log('Not connected with database'))
+
 	}
 	static getInstance() {
 		if (this._database) {
