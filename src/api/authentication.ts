@@ -1,8 +1,6 @@
 import { Request } from 'express-serve-static-core';
 import express from 'express';
 import MessageResponse from '../interfaces/MessageResponse';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { ValidationHelper } from '../helpers/ValidationHelper';
 import { ErrorHelper } from '../helpers/ErrorHelper';
 import { TUser } from '../models/UserModel';
@@ -14,7 +12,6 @@ router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) =
   console.log("register initiated")
 
   // validate user input, for email, password, and username
-
   if (ValidationHelper.hasEmptyFields(req.body)) {
     return res.status(400).send({ message: "Missing email, password or username fields. Check if you have any typos" });
   }

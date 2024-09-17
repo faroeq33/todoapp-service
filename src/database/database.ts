@@ -1,15 +1,21 @@
+import User, { TUser } from '../models/UserModel';
 import mongoose from "mongoose";
-import * as dotenv from 'dotenv'
-
-dotenv.config()
+import { DB_URL } from '../config'
 
 class Database {
 	private static _database: Database
 
 	private constructor() {
-		const dbUrl = process.env.DB_URL
+		const dbUrl = DB_URL
+
+		if (process.env.NODE_ENV === 'DEV' && dbUrl) {
+			console.log(dbUrl)
+		}
+
 		if (dbUrl) {
-			mongoose.connect(dbUrl)
+			const testurl = 'mongodb://mongoadmin:secret@localhost:27017'
+			console.log('current db url', dbUrl)
+			mongoose.connect(testurl)
 				.then(() => console.log('Connected with database'))
 				.catch(() => console.log('Not connected with database'))
 		}
@@ -23,6 +29,11 @@ class Database {
 		}
 		this._database = new Database()
 		return this._database;
+	}
+
+	static async registerUser(userInput: TUser) {
+		const admin = new User(userInput);
+		return await admin.save();
 	}
 }
 
