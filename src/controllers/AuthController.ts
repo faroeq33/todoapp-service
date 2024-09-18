@@ -20,6 +20,7 @@ export class AuthController {
 				message: "Missing email, password or username fields. Check if you have any typos"
 			};
 		}
+
 		try {
 			await Database.registerUser(userInput);
 
@@ -43,7 +44,6 @@ export class AuthController {
 				message: 'Internal server error'
 			};
 		}
-		// Your register logic here
 	}
 
 	static async login(userInput: TUser): AuthResponse {

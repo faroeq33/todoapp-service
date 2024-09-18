@@ -1,8 +1,8 @@
 // this file could be anything (like a json directly imported)
 
-export default {
+export = {
 	Memory: true,
-	IP: process.env.HOST,
-	Port: process.env.MONGO_PORT,
+	IP: '127.0.0.1',
+	Port: '27017',
 	Database: 'testdb'
-};
+}

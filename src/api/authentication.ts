@@ -21,10 +21,10 @@ router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) =
 router.post('/login', async (req, res) => {
   const response = await AuthController.login(req.body);
 
-  res
+  return res
     .status(response.statusCode)
     .send({
-      message: response.message,
+      ...response
     });
 });
 

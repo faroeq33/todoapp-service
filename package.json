@@ -11,6 +11,7 @@
     "build": "tsc",
     "lint": "eslint --fix src test",
     "test": "export NODE_ENV=TEST && jest --detectOpenHandles",
+    "test:watch": "export NODE_ENV=TEST && jest --detectOpenHandles --watchAll",
     "start:dist": "node dist/src/index.js",
     "typecheck": "tsc --noEmit"
   },
@@ -47,5 +48,10 @@
     "tslib": "^2.6.3",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.2.0"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "debug": "0"
+    }
   }
 }

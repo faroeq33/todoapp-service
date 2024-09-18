@@ -4,12 +4,9 @@ export default {
   preset: "ts-jest",
   testEnvironment: "node",
   setupFiles: ["dotenv/config"],
-  globalSetup: "<rootDir>/tests/globalSetup.ts",
-  globalTeardown: "<rootDir>/tests/globalTeardown.ts",
+  globalSetup: "<rootDir>/tests/global/globalSetup.ts",
+  globalTeardown: "<rootDir>/tests/global/globalTeardown.ts",
   setupFilesAfterEnv: [
-    "<rootDir>/tests/setupFile.ts"
+    "<rootDir>/tests/global/setupFile.ts"
   ]
-  // collectCoverage: true,
-  // coverageReporters: ["text", "html"],
-  // coverageDirectory: "<rootDir>/coverage/",
 };

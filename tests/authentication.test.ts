@@ -79,24 +79,52 @@ describe("Authentication API", () => {
 		}
 
 		it("should return 400 if email is missing", async () => {
-			requestPostLogin({
+			// Without `await`, I get ERRCONNRESET, so I added it
+			await requestPostLogin({
 				username: 'testuser',
 				password: testUser.password,
 			});
 		});
 
 		it("should return 400 if password is missing", async () => {
-			requestPostLogin({
+			await requestPostLogin({
 				email: 'test@test.com',
 				username: testUser.username,
 			});
 		});
 
 		it("should return 400 if username is missing", async () => {
-			requestPostLogin({
+			await requestPostLogin({
 				username: 'testuser',
 				email: testUser.email,
 			});
+		});
+
+		it("should return token if user is logged in successfully", async () => {
+			const response = await request
+				.post(`${baseRoute}/login`)
+				.send(
+					{
+						username: "testuser",
+						password: "password",
+						email: "test@test.com",
+					});
+
+			expect(response.ok).toBeTruthy();
+			expect(response.body).toHaveProperty("token");
+		});
+
+		it("should return 404 if user does not exist", async () => {
+			const response = await request
+				.post(`${baseRoute}/login`)
+				.send({
+					username: "nonexistentuser",
+					password: "nonexistentpassword",
+					email: "non@existent.email"
+				});
+
+			expect(response.statusCode).toBe(404)
+			expect(response.ok).toBeFalsy();
 		});
 	})
 });
