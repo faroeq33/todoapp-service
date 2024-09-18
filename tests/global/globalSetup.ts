@@ -4,12 +4,12 @@ import config from './testConfig';
 
 export = async function globalSetup() {
 	// Config to decide if an mongodb-memory-server instance should be used
-	// it's needed in global space, because we don't want to create a new instance every test-suite
+	// it's needed in global space, because we don't want to create a new instance every test-suite.
 	if (!config.Memory) {
 		process.env.MONGO_URI = `mongodb://${config.IP}:${config.Port}`;
 	}
 
-	const instance = await MongoMemoryServer.create({});
+	const instance = await MongoMemoryServer.create();
 	const uri = instance.getUri();
 	(global as any).__MONGOINSTANCE = instance;
 
