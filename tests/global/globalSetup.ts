@@ -21,9 +21,10 @@ export = async function globalSetup() {
 	const conn = await mongoose.connect(`${process.env.MONGO_URI}/${config.Database}`);
 
 	// conn.connection.db might be undefined, so we need to check it
-	if (!conn.connection.db) return;
+	if (conn.connection.db) {
+		await conn.connection.db.dropDatabase();
+	};
 
-	await conn.connection.db.dropDatabase();
 	await mongoose.disconnect();
 
 };
