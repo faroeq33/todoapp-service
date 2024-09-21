@@ -6,7 +6,5 @@ export default {
   setupFiles: ["dotenv/config"],
   globalSetup: "<rootDir>/tests/global/globalSetup.ts",
   globalTeardown: "<rootDir>/tests/global/globalTeardown.ts",
-  setupFilesAfterEnv: [
-    "<rootDir>/tests/global/setupFile.ts"
-  ]
+  setupFilesAfterEnv: ["<rootDir>/tests/global/setupFile.ts"],
 };

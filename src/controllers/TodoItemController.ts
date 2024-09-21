@@ -1,5 +1,5 @@
-import TodoItemModel from '../models/TodoItemModel';
-import TodoListModel from '../models/TodoListModel';
+import TodoItemModel from "../models/TodoItemModel";
+import TodoListModel from "../models/TodoListModel";
 
 export class TodoItemController {
   // get all todos
@@ -56,13 +56,16 @@ export class TodoItemController {
   }
 
   // update todo
-  async updateTodo(id: string, data: {
-    slug: string;
-    title: string;
-    password: string;
-    questions: any;
-    totalQuestions: number;
-  }) {
+  async updateTodo(
+    id: string,
+    data: {
+      slug: string;
+      title: string;
+      password: string;
+      questions: any;
+      totalQuestions: number;
+    }
+  ) {
     const { slug, title, password, questions, totalQuestions } = data;
 
     if (!id) {

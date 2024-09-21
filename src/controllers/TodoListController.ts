@@ -1,6 +1,6 @@
-import TodoItemModel from '../models/TodoItemModel';
-import TodoListModel from '../models/TodoListModel';
-import { AuthRequest } from '../interfaces/AuthRequest';
+import TodoItemModel from "../models/TodoItemModel";
+import TodoListModel from "../models/TodoListModel";
+import { AuthRequest } from "../interfaces/AuthRequest";
 
 export class TodoListController {
   /* get all todolists from user paginated
