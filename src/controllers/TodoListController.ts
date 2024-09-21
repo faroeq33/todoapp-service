@@ -42,24 +42,10 @@ export class TodoListController {
     };
   }
 
-  // get todo by slug
-  async getTodoBySlug(req: AuthRequest) {
-    if (!req.params.slug) {
-      throw new Error("todo slug is required");
-    }
-    const todo = await TodoItemModel.find({ slug: req.params.slug });
-    if (!todo) {
-      throw new Error("todo not found");
-    }
-    return {
-      todo,
-    };
-  }
-
   // create todo
   async create(req: AuthRequest) {
     if (!req.body.user_id) {
-      throw new Error("user_id is required");
+      throw new Error("user id is required");
     }
     if (!req.body.title) {
       throw new Error("title is required");

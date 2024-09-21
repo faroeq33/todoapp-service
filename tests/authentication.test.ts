@@ -1,6 +1,12 @@
 import supertest from "supertest";
 import app from "../src/app";
 
+/*
+* This this is intended to test this RESTAPI service from the clients perspective.
+* So it should not care which database it's using, or how the service is implemented.
+* It should only care about the API contract.
+*/
+
 const request = supertest(app);
 
 describe("Authentication API", () => {

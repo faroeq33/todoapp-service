@@ -1,15 +1,14 @@
 import express from 'express';
 import authRoutes from './authentication';
 import todoRoutes from './todos';
-
 /*
  * This is the main router that will be used in the app
  */
 
-const apiVersion = '/api/v1';
 const router = express.Router();
 
-router.use(apiVersion + '/auth', authRoutes);
-router.use(apiVersion, todoRoutes);
+router.use(`/api/v1/auth`, authRoutes);
+router.use(`/api/v1`, todoRoutes);
+
 
 export default router;
