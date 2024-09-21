@@ -1,12 +1,12 @@
+import { Router } from 'express';
 import { Request } from 'express-serve-static-core';
-import express from 'express';
-import MessageResponse from '../interfaces/MessageResponse';
 import { TUser } from '../models/UserModel';
 import { AuthController } from '../controllers/AuthController';
+import { MessageResponse } from '../interfaces/MessageResponse';
 
-const router = express.Router();
+const authRouter = Router();
 
-router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) => {
+authRouter.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) => {
   const response = await AuthController.register(req.body);
 
   res
@@ -18,7 +18,7 @@ router.post('/register', async (req: Request<{}, MessageResponse, TUser>, res) =
 );
 
 // make login route
-router.post('/login', async (req, res) => {
+authRouter.post('/login', async (req, res) => {
   const response = await AuthController.login(req.body);
 
   return res
@@ -30,5 +30,5 @@ router.post('/login', async (req, res) => {
 
 
 // make logout route
-export default router;
+export { authRouter };
 
