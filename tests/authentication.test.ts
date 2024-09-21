@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import app from "../src/app";
+import { app } from "../src/app";
 
 /*
  * This this is intended to test this RESTAPI service from the clients perspective.

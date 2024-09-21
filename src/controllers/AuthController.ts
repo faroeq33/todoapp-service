@@ -1,4 +1,4 @@
-import Database from "../database/database";
+import { Database } from "../database/database";
 import { ErrorHelper } from "../helpers/ErrorHelper";
 import { ValidationHelper } from "../helpers/ValidationHelper";
 import bcrypt from "bcrypt";

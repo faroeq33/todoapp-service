@@ -4,9 +4,9 @@ import helmet from "helmet";
 import cors from "cors";
 
 import * as middlewares from "./middlewares/middlewares";
-import apiRoutes from "./api/routes";
-import Database from "./database/database";
+import { Database } from "./database/database";
 import { config as env } from "./config";
+import { mainRouter } from "./api/routes";
 
 const app = express();
 
@@ -20,10 +20,10 @@ if (env.NODE_ENV === "DEV" || env.NODE_ENV === "PRODUCTION") {
   Database.getInstance();
 }
 
-app.use("/", apiRoutes);
+app.use("/", mainRouter);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
 // In order to write automated tests, we need to export the app instance.
-export default app;
+export { app };

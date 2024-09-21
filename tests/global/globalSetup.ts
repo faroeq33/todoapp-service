@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import * as mongoose from "mongoose";
-import config from "./testConfig";
+import { testConfig as config } from "./testConfig";
 
 export = async function globalSetup() {
   // Config to decide if an mongodb-memory-server instance should be used
